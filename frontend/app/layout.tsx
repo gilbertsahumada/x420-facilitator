@@ -15,8 +15,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "x402 Payment Facilitator",
-  description: "Verify and process payments using the x402 protocol",
+  title: "x420 Payment Facilitator",
+  description: "Payment facilitator implementing the x402 protocol",
+  openGraph: {
+    title: "x420 Payment Facilitator",
+    description: "Payment facilitator implementing the x402 protocol",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "x420 Payment Facilitator",
+    description: "Payment facilitator implementing the x402 protocol",
+  },
 };
 
 export default function RootLayout({

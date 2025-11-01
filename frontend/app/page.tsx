@@ -9,10 +9,10 @@ export default function Home() {
           {/* Header */}
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold tracking-tight">
-              x402 Payment Facilitator
+              x420 Payment Facilitator
             </h1>
             <p className="text-muted-foreground text-lg">
-              Verify and process payments using the x402 protocol
+              Implementing the x402 protocol for payment verification and settlement
             </p>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm">
               <span className="relative flex h-2 w-2">
@@ -110,6 +110,13 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
+        </div>
+        
+        {/* Footer Note */}
+        <div className="text-center pt-8">
+          <p className="text-xs text-muted-foreground">
+            Built on the x402 protocol
+          </p>
         </div>
       </div>
     </div>

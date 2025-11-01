@@ -14,7 +14,7 @@ export function Navbar() {
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <Link href="/" className="font-bold text-lg">
-            x402 Facilitator
+            x420 Facilitator
           </Link>
           <div className="flex items-center gap-1">
             <Button

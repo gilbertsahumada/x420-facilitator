@@ -1,0 +1,17 @@
+# Variables de entorno para desarrollo local
+# Copia este archivo a .dev.vars y completa con tus valores reales
+# 
+# IMPORTANTE: .dev.vars está en .gitignore y NO debe ser commiteado
+
+# Private key del facilitator wallet (debe incluir el prefijo 0x)
+# Usa una wallet de testnet para desarrollo
+EVM_PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE
+
+# Alchemy API key (solo la key, no la URL completa)
+# Crea una app en https://www.alchemy.com/ para Avalanche Fuji (testnet)
+ALCHEMY_API_KEY=your_alchemy_api_key_here
+
+# Orígenes permitidos para CORS (opcional, por defecto permite todos)
+# Para desarrollo local, puedes usar * para permitir todos
+ALLOWED_ORIGINS=*
+

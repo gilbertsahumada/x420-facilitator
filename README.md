@@ -1,14 +1,37 @@
 # x420-facilitator
 
-Monorepo para el sistema x402 Payment Protocol, incluyendo el facilitator backend y el frontend web.
+Monorepo para x420 Facilitator, un facilitator de pagos que implementa el protocolo x402. Incluye backend facilitator, deployment en Cloudflare Workers, y frontend web.
 
 ## Estructura del Proyecto
 
 ```
 x420-facilitator/
-├── backend/          # Facilitator API (Express + TypeScript)
+├── backend/          # Facilitator API (Express + TypeScript) - Legacy
+├── worker/           # Cloudflare Workers deployment (Hono + TypeScript) - RECOMENDADO ⭐
 └── frontend/         # Interfaz web (Next.js + shadcn/ui)
 ```
+
+## 🚀 Quick Start - Cloudflare Workers (Recomendado)
+
+```bash
+# 1. Setup Worker
+cd worker
+yarn install
+npm install -g wrangler
+wrangler login
+
+# 2. Configurar secrets
+wrangler secret put EVM_PRIVATE_KEY
+wrangler secret put RPC_URL
+
+# 3. Deploy
+yarn deploy
+
+# 4. Test
+curl https://x402-facilitator.YOUR_SUBDOMAIN.workers.dev/health
+```
+
+Ver [worker/README.md](worker/README.md) para más detalles.
 
 ## Address Facilitator
 
@@ -18,7 +41,7 @@ x420-facilitator/
 
 ## Backend (Facilitator API)
 
-El backend es un servidor Express que maneja la verificación y settlement de pagos x402.
+El backend es un servidor Express que maneja la verificación y settlement de pagos implementando el protocolo x402.
 
 ### Setup Backend
 

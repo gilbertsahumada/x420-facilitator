@@ -1,0 +1,24 @@
+{
+  "paymentPayload": {
+    "version": "1.0",
+    "scheme": "erc3009",
+    "data": {
+      "from": "0x...",
+      "to": "0x...",
+      "value": "100000",
+      "validAfter": "0",
+      "validBefore": "9999999999",
+      "nonce": "0x...",
+      "v": 27,
+      "r": "0x...",
+      "s": "0x..."
+    }
+  },
+  "paymentRequirements": {
+    "version": "1.0",
+    "network": "base-sepolia",
+    "recipient": "0xf970be6543cd20ff1f7570959949e31fa16fba7b",
+    "price": "$0.10",
+    "scheme": "erc3009"
+  }
+}

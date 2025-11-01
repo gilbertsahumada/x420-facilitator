@@ -1,0 +1,49 @@
+# Cloudflare Workers Configuration
+name = "x402-facilitator"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+# Variables de entorno públicas (no sensitivas)
+[vars]
+ENVIRONMENT = "development"
+LOG_LEVEL = "info"
+
+# Límites y configuración
+[limits]
+cpu_ms = 50  # Timeout de 50ms por request
+
+# Observabilidad
+[observability]
+enabled = true
+
+# === STAGING ENVIRONMENT ===
+[env.staging]
+name = "x402-facilitator-staging"
+vars = { ENVIRONMENT = "staging", LOG_LEVEL = "debug" }
+
+# === PRODUCTION ENVIRONMENT ===
+[env.production]
+name = "x402-facilitator-production"
+vars = { ENVIRONMENT = "production", LOG_LEVEL = "warn" }
+
+# Rutas (configura tu dominio custom)
+# [[env.production.routes]]
+# pattern = "facilitator.tudominio.com/*"
+# zone_name = "tudominio.com"
+
+# Secrets (configurar con: wrangler secret put SECRET_NAME)
+# - EVM_PRIVATE_KEY: Private key del facilitator
+# - RPC_URL: URL del RPC (Alchemy, Infura, etc.)
+# - ALLOWED_ORIGINS: Orígenes permitidos para CORS (comma-separated)
+
+# Para configurar secrets:
+# wrangler secret put EVM_PRIVATE_KEY
+# wrangler secret put RPC_URL
+# wrangler secret put ALLOWED_ORIGINS
+
+# KV Namespaces para rate limiting y cache
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-id"

@@ -330,7 +330,7 @@ export default function BlockchainDashboard() {
 
         <div className="space-y-2">
 
-          <h1 className="text-4xl font-bold tracking-tight">Blockchain Facilitator</h1>
+          <h1 className="text-4xl font-bold tracking-tight">x420 Facilitator</h1>
 
           <p className="text-muted-foreground">Transaction monitor and server status</p>
 
