@@ -1,37 +1,104 @@
 # x420-facilitator
 
-TypeScript project
+Monorepo para el sistema x402 Payment Protocol, incluyendo el facilitator backend y el frontend web.
 
-## Setup
+## Estructura del Proyecto
 
-Install dependencies:
-```bash
-npm install
+```
+x420-facilitator/
+├── backend/          # Facilitator API (Express + TypeScript)
+└── frontend/         # Interfaz web (Next.js + shadcn/ui)
 ```
 
-## Development
+## Address Facilitator
 
-Run in development mode:
-```bash
-npm run dev
+```shell
+0xf970be6543cd20ff1f7570959949e31fa16fba7b
 ```
 
-## Build
+## Backend (Facilitator API)
 
-Build the project:
+El backend es un servidor Express que maneja la verificación y settlement de pagos x402.
+
+### Setup Backend
+
 ```bash
-npm run build
+cd backend
+yarn install
 ```
 
-Run the built project:
+### Development
+
 ```bash
-npm start
+cd backend
+yarn dev
 ```
 
-## Watch Mode
+### Build
 
-Watch for changes and rebuild:
 ```bash
-npm run watch
+cd backend
+yarn build
+```
+
+### Run Production
+
+```bash
+cd backend
+yarn start
+```
+
+## Frontend (Next.js + shadcn/ui)
+
+El frontend proporciona una interfaz web para interactuar con el facilitator.
+
+### Setup Frontend
+
+```bash
+cd frontend
+yarn install
+```
+
+### Development
+
+```bash
+cd frontend
+yarn dev
+```
+
+El frontend estará disponible en `http://localhost:3000`
+
+### Build
+
+```bash
+cd frontend
+yarn build
+```
+
+### Run Production
+
+```bash
+cd frontend
+yarn start
+```
+
+## Variables de Entorno
+
+### Backend
+
+Crea un archivo `.env` en el directorio `backend/`:
+
+```env
+EVM_PRIVATE_KEY=tu_private_key
+RPC_URL=tu_rpc_url
+PORT=3000
+```
+
+### Frontend
+
+Crea un archivo `.env.local` en el directorio `frontend/`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000
 ```
 

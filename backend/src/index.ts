@@ -26,6 +26,7 @@ if (!EVM_PRIVATE_KEY || !RPC_URL) {
 const x402Config: X402Config = { rpcUrl: process.env.RPC_URL } as X402Config;
 
 const app = express();
+app.use(express.json());
 
 type VerifyRequest = {
   paymentPayload: PaymentPayload;
@@ -49,7 +50,9 @@ app.get("/verify", async (req: Request, res: Response) => {
 });
 
 app.post("/verify", async (req: Request, res: Response) => {
+  console.log("Verify request received POST");
   try {
+    console.log("Verify request received POST");
     const body: VerifyRequest = req.body;
     const paymentRequirements = PaymentRequirementsSchema.parse(
       body.paymentRequirements
@@ -71,11 +74,13 @@ app.post("/verify", async (req: Request, res: Response) => {
     );
     res.json(valid);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Internal x420 Request" });
   }
 });
 
 app.get("/settle", async (req: Request, res: Response) => {
+  console.log("Settle request received");
   res.json({
     endpoint: "/settle",
     description: "POST to settle x402 payments",
@@ -87,6 +92,7 @@ app.get("/settle", async (req: Request, res: Response) => {
 });
 
 app.post("/settle", async (req: Request, res: Response) => {
+  console.log("Settle request received");
   try {
     const body: SettleRequest = req.body;
     const paymentPayload = PaymentPayloadSchema.parse(body.paymentPayload);
@@ -104,6 +110,7 @@ app.post("/settle", async (req: Request, res: Response) => {
     const settled = await settle(signer, paymentPayload, paymentRequirements, x402Config);
     res.json(settled);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Internal x420 Request" });
   }
 });

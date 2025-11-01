@@ -1,27 +1,18 @@
 {
-  "name": "x420-facilitator",
+  "name": "x420-facilitator-monorepo",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "private": true,
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
-    "watch": "tsc --watch"
+    "dev:backend": "cd backend && yarn dev",
+    "dev:frontend": "cd frontend && yarn dev",
+    "build:backend": "cd backend && yarn build",
+    "build:frontend": "cd frontend && yarn build",
+    "build": "yarn build:backend && yarn build:frontend",
+    "start:backend": "cd backend && yarn start",
+    "start:frontend": "cd frontend && yarn start"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/express": "^5.0.5",
-    "@types/node": "^20.10.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
-  "dependencies": {
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "x402": "^0.7.1"
-  }
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
 }
