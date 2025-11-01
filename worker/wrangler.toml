@@ -9,10 +9,6 @@ workers_dev = true
 ENVIRONMENT = "development"
 LOG_LEVEL = "info"
 
-# Límites y configuración
-[limits]
-cpu_ms = 50  # Timeout de 50ms por request
-
 # Observabilidad
 [observability]
 enabled = true
