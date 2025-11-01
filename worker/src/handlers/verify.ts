@@ -56,10 +56,6 @@ export async function verifyHandler(c: Context<{ Bindings: Env }>): Promise<Resp
     // Verify payment
     const result = await verify(client, paymentPayload, paymentRequirements, x402Config);
 
-    console.log('**************************************************');
-    console.log(result);
-    console.log('**************************************************');
-
     if (!result.isValid) {
       console.log('**************************************************');
       logger.warn('Payment verification failed', {
@@ -72,12 +68,6 @@ export async function verifyHandler(c: Context<{ Bindings: Env }>): Promise<Resp
       valid: result.isValid,
       network: paymentRequirements.network,
     });
-
-    const response: VerifyResponse = {
-      valid: result.isValid,
-      reason: result.isValid ? "Payment is valid" : result.invalidReason,
-      timestamp: new Date().toISOString(),
-    };
 
     return c.json(result);
   } catch (error) {

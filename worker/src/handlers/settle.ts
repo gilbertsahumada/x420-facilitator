@@ -77,25 +77,9 @@ export async function settleHandler(
         reason: result.errorReason,
         network: paymentRequirements.network,
       });
-
-      const response: SettleResponse = {
-        success: false,
-        error: result.errorReason ? result.errorReason : undefined,
-        timestamp: new Date().toISOString(),
-      };
-
-      return c.json(response, 400);
     }
 
-    const response: SettleResponse = {
-      success: result.success,
-      transactionHash: result.transaction,
-      network: paymentRequirements.network,
-      error: result.errorReason ? result.errorReason : undefined,
-      timestamp: new Date().toISOString(),
-    };
-
-    return c.json(response);
+    return c.json(result);
   } catch (error) {
     logger.error("Settlement failed", {
       error: error instanceof Error ? error.message : "Unknown error",
