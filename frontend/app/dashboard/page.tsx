@@ -20,15 +20,23 @@ import { Activity, Server, TrendingUp, Copy, ExternalLink, ChevronLeft, ChevronR
 
 import { useTheme } from "next-themes"
 
+import { createPublicClient, http, formatEther } from "viem"
+
+
+
+// Facilitator address
+
+const FACILITATOR_ADDRESS = "0xf970be6543cd20ff1f7570959949e31fa16fba7b" as const
+
 
 
 // Supported blockchain networks
 
 const supportedChains = [
 
-  { id: "avalanche", name: "Avalanche", symbol: "AVAX", color: "#E84142" },
+  { id: "avalanche", name: "Avalanche", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax.network/ext/bc/C/rpc" },
 
-  { id: "avalanche-fuji", name: "Avalanche Fuji", symbol: "AVAX", color: "#E84142" },
+  { id: "avalanche-fuji", name: "Avalanche Fuji", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax-test.network/ext/bc/C/rpc" },
 
 ]
 
@@ -112,7 +120,85 @@ export default function BlockchainDashboard() {
 
   const [timeFilter, setTimeFilter] = useState<string>("all")
 
+  const [balances, setBalances] = useState<Record<string, string>>({})
+
+  const [loadingBalances, setLoadingBalances] = useState(true)
+
   const itemsPerPage = 20
+
+  // Fetch balances on mount
+
+  React.useEffect(() => {
+
+    const fetchBalances = async () => {
+
+      const balancePromises = supportedChains.map(async (chain) => {
+
+        try {
+
+          const client = createPublicClient({
+
+            transport: http(chain.rpcUrl),
+
+          })
+
+
+
+          const balance = await client.getBalance({
+
+            address: FACILITATOR_ADDRESS,
+
+          })
+
+
+
+          return {
+
+            chainId: chain.id,
+
+            balance: formatEther(balance),
+
+          }
+
+        } catch (error) {
+
+          console.error(`Error fetching balance for ${chain.name}:`, error)
+
+          return {
+
+            chainId: chain.id,
+
+            balance: "0.0000",
+
+          }
+
+        }
+
+      })
+
+
+
+      const results = await Promise.all(balancePromises)
+
+      const balanceMap: Record<string, string> = {}
+
+      results.forEach(({ chainId, balance }) => {
+
+        balanceMap[chainId] = balance
+
+      })
+
+      setBalances(balanceMap)
+
+      setLoadingBalances(false)
+
+    }
+
+
+
+    fetchBalances()
+
+  }, [])
 
   // Get tick color based on theme (use resolvedTheme to handle system theme)
 
@@ -415,23 +501,35 @@ export default function BlockchainDashboard() {
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
-              {supportedChains.map((chain) => (
+              {supportedChains.map((chain) => {
 
-                <div key={chain.id} className="flex items-center gap-3 rounded-lg border p-4">
+                const balance = balances[chain.id] || "0.0000"
 
-                  <div className="h-10 w-10 rounded-full" style={{ backgroundColor: chain.color }} />
+                const displayBalance = loadingBalances ? "..." : Number.parseFloat(balance).toFixed(4)
 
-                  <div>
+                return (
 
-                    <p className="font-semibold">{chain.name}</p>
+                  <div key={chain.id} className="flex items-center gap-3 rounded-lg border p-4">
 
-                    <p className="text-sm text-muted-foreground">{chain.symbol}</p>
+                    <div className="h-10 w-10 rounded-full" style={{ backgroundColor: chain.color }} />
+
+                    <div className="flex-1">
+
+                      <p className="font-semibold">{chain.name}</p>
+
+                      <p className="text-sm text-muted-foreground">
+
+                        Balance: <span className="font-mono">{displayBalance} {chain.symbol}</span>
+
+                      </p>
+
+                    </div>
 
                   </div>
 
-                </div>
+                )
 
-              ))}
+              })}
 
             </div>
 
