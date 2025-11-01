@@ -16,12 +16,14 @@ const networks = [
     color: '#E84142',
     rpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
     chainId: 43114,
+    enabled: false,
   },
   {
     name: 'Avalanche Fuji',
     color: '#E84142',
     rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
     chainId: 43113,
+    enabled: true,
   }
 ];
 
@@ -49,7 +51,8 @@ export default function Home() {
 
   useEffect(() => {
     const fetchBalances = async () => {
-      const balancePromises = networks.map(async (network) => {
+      const enabledNetworks = networks.filter(n => n.enabled);
+      const balancePromises = enabledNetworks.map(async (network) => {
         try {
           const client = createPublicClient({
             transport: http(network.rpcUrl),
@@ -248,18 +251,34 @@ export default function Home() {
                 {networks.map((network) => {
                   const balance = balances[network.name] || "0.0000";
                   const displayBalance = loading ? "..." : Number.parseFloat(balance).toFixed(4);
+                  const isEnabled = network.enabled ?? true;
                   
                   return (
                     <div
                       key={network.name}
-                      className="flex items-center gap-3 rounded-lg border p-4"
+                      className={`flex items-center gap-3 rounded-lg border p-4 ${
+                        !isEnabled ? "opacity-60" : ""
+                      }`}
                     >
                       <div className="h-10 w-10 rounded-full" style={{ backgroundColor: network.color }} />
                       <div className="flex-1">
-                        <p className="font-semibold">{network.name}</p>
-                        <p className="text-sm text-muted-foreground">
-                          Balance: <span className="font-mono">{displayBalance} AVAX</span>
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold">{network.name}</p>
+                          {!isEnabled && (
+                            <Badge variant="secondary" className="text-xs">
+                              SOON
+                            </Badge>
+                          )}
+                        </div>
+                        {isEnabled ? (
+                          <p className="text-sm text-muted-foreground">
+                            Balance: <span className="font-mono">{displayBalance} AVAX</span>
+                          </p>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">
+                            Coming soon
+                          </p>
+                        )}
                       </div>
                     </div>
                   );

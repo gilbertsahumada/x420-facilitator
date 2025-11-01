@@ -34,9 +34,9 @@ const FACILITATOR_ADDRESS = "0xf970be6543cd20ff1f7570959949e31fa16fba7b" as cons
 
 const supportedChains = [
 
-  { id: "avalanche", name: "Avalanche", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax.network/ext/bc/C/rpc" },
+  { id: "avalanche", name: "Avalanche", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax.network/ext/bc/C/rpc", enabled: false },
 
-  { id: "avalanche-fuji", name: "Avalanche Fuji", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax-test.network/ext/bc/C/rpc" },
+  { id: "avalanche-fuji", name: "Avalanche Fuji", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax-test.network/ext/bc/C/rpc", enabled: true },
 
 ]
 
@@ -124,7 +124,7 @@ export default function BlockchainDashboard() {
 
   const [loadingBalances, setLoadingBalances] = useState(true)
 
-  const itemsPerPage = 20
+  const itemsPerPage = 10
 
   // Fetch balances on mount
 
@@ -132,7 +132,9 @@ export default function BlockchainDashboard() {
 
     const fetchBalances = async () => {
 
-      const balancePromises = supportedChains.map(async (chain) => {
+      const enabledChains = supportedChains.filter(c => c.enabled);
+
+      const balancePromises = enabledChains.map(async (chain) => {
 
         try {
 
@@ -507,21 +509,49 @@ export default function BlockchainDashboard() {
 
                 const displayBalance = loadingBalances ? "..." : Number.parseFloat(balance).toFixed(4)
 
+                const isEnabled = chain.enabled ?? true
+
                 return (
 
-                  <div key={chain.id} className="flex items-center gap-3 rounded-lg border p-4">
+                  <div key={chain.id} className={`flex items-center gap-3 rounded-lg border p-4 ${!isEnabled ? "opacity-60" : ""}`}>
 
                     <div className="h-10 w-10 rounded-full" style={{ backgroundColor: chain.color }} />
 
                     <div className="flex-1">
 
-                      <p className="font-semibold">{chain.name}</p>
+                      <div className="flex items-center gap-2">
 
-                      <p className="text-sm text-muted-foreground">
+                        <p className="font-semibold">{chain.name}</p>
 
-                        Balance: <span className="font-mono">{displayBalance} {chain.symbol}</span>
+                        {!isEnabled && (
 
-                      </p>
+                          <Badge variant="secondary" className="text-xs">
+
+                            SOON
+
+                          </Badge>
+
+                        )}
+
+                      </div>
+
+                      {isEnabled ? (
+
+                        <p className="text-sm text-muted-foreground">
+
+                          Balance: <span className="font-mono">{displayBalance} {chain.symbol}</span>
+
+                        </p>
+
+                      ) : (
+
+                        <p className="text-sm text-muted-foreground">
+
+                          Coming soon
+
+                        </p>
+
+                      )}
 
                     </div>
 
@@ -543,7 +573,17 @@ export default function BlockchainDashboard() {
 
         <div className="grid gap-4 md:grid-cols-3">
 
-          <Card>
+          <Card className="relative">
+
+            <div className="absolute top-2 right-2 z-10">
+
+              <Badge variant="secondary" className="text-xs">
+
+                SOON
+
+              </Badge>
+
+            </div>
 
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 
@@ -555,13 +595,23 @@ export default function BlockchainDashboard() {
 
             <CardContent>
 
-              <div className="text-2xl font-bold">{stats.totalTransactions}</div>
+              <div className="text-2xl font-bold opacity-60">{stats.totalTransactions}</div>
 
             </CardContent>
 
           </Card>
 
-          <Card>
+          <Card className="relative">
+
+            <div className="absolute top-2 right-2 z-10">
+
+              <Badge variant="secondary" className="text-xs">
+
+                SOON
+
+              </Badge>
+
+            </div>
 
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 
@@ -573,7 +623,7 @@ export default function BlockchainDashboard() {
 
             <CardContent>
 
-              <div className="text-2xl font-bold">{stats.totalAmount}</div>
+              <div className="text-2xl font-bold opacity-60">{stats.totalAmount}</div>
 
               <p className="text-xs text-muted-foreground">AVAX equivalent</p>
 
@@ -581,7 +631,17 @@ export default function BlockchainDashboard() {
 
           </Card>
 
-          <Card>
+          <Card className="relative">
+
+            <div className="absolute top-2 right-2 z-10">
+
+              <Badge variant="secondary" className="text-xs">
+
+                SOON
+
+              </Badge>
+
+            </div>
 
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 
@@ -593,7 +653,7 @@ export default function BlockchainDashboard() {
 
             <CardContent>
 
-              <div className="text-2xl font-bold">{stats.totalFees}</div>
+              <div className="text-2xl font-bold opacity-60">{stats.totalFees}</div>
 
               <p className="text-xs text-muted-foreground">AVAX equivalent</p>
 
@@ -607,7 +667,17 @@ export default function BlockchainDashboard() {
 
         {/* Transactions Chart */}
 
-        <Card>
+        <Card className="relative">
+
+          <div className="absolute top-4 right-4 z-10">
+
+            <Badge variant="secondary" className="text-xs">
+
+              SOON
+
+            </Badge>
+
+          </div>
 
           <CardHeader>
 
@@ -657,7 +727,7 @@ export default function BlockchainDashboard() {
 
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="opacity-60">
 
             <ResponsiveContainer width="100%" height={300}>
 
@@ -735,7 +805,7 @@ export default function BlockchainDashboard() {
 
                   <SelectItem value="all">All chains</SelectItem>
 
-                  {supportedChains.map((chain) => (
+                  {supportedChains.filter(chain => chain.enabled).map((chain) => (
 
                     <SelectItem key={chain.id} value={chain.id}>
 
@@ -847,7 +917,7 @@ export default function BlockchainDashboard() {
 
                         <TableCell className="font-mono">
 
-                          {tx.amount} {chain?.symbol}
+                          {tx.amount} USDC
 
                         </TableCell>
 
