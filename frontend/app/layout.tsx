@@ -19,6 +19,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "x420 Payment Facilitator",
   description: "Payment facilitator implementing the x402 protocol",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "x420 Payment Facilitator",
     description: "Payment facilitator implementing the x402 protocol",
