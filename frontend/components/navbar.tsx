@@ -14,7 +14,10 @@ export function Navbar() {
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <Link href="/" className="font-bold text-lg">
-            x420 Facilitator
+            x<span className="text-green-600 dark:text-green-400">4</span>
+            <span className="text-green-600 dark:text-green-400 inline-block transform scale-x-[-1]">2</span>
+            <span className="text-green-600 dark:text-green-400 inline-block transform scale-x-[-1]">0</span>
+            {" "}Facilitator
           </Link>
           <div className="flex items-center gap-1">
             <Button
