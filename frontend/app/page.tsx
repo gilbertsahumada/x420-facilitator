@@ -1,6 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import {
+	ArrowRight,
+	CheckCircle2,
+	Copy,
+	ExternalLink,
+	Network,
+	Server,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { createPublicClient, formatEther, http } from "viem";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -8,18 +20,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-	CheckCircle2,
-	ArrowRight,
-	Network,
-	Server,
-	Copy,
-	ExternalLink,
-} from "lucide-react";
-import { createPublicClient, http, formatEther } from "viem";
-import { toast } from "sonner";
 import {
 	FACILITATOR_ADDRESS,
 	FACILITATOR_URL,

@@ -1,0 +1,3 @@
+# Ignore CSS files - Tailwind processes @apply directives
+**/*.css
+

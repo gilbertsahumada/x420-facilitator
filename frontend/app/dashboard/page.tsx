@@ -1,9 +1,29 @@
 "use client";
 
+import {
+	Activity,
+	ChevronLeft,
+	ChevronRight,
+	Copy,
+	ExternalLink,
+	Server,
+	TrendingUp,
+} from "lucide-react";
+import { useTheme } from "next-themes";
 import * as React from "react";
-
-import { useState, useMemo } from "react";
-
+import { useMemo, useState } from "react";
+import {
+	Bar,
+	BarChart,
+	CartesianGrid,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis,
+} from "recharts";
+import { createPublicClient, formatEther, http } from "viem";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -11,11 +31,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-
-import { Badge } from "@/components/ui/badge";
-
-import { Button } from "@/components/ui/button";
-
 import {
 	Select,
 	SelectContent,
@@ -23,7 +38,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-
 import {
 	Table,
 	TableBody,
@@ -34,33 +48,9 @@ import {
 } from "@/components/ui/table";
 
 import {
-	BarChart,
-	Bar,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	ResponsiveContainer,
-} from "recharts";
-
-import {
-	Activity,
-	Server,
-	TrendingUp,
-	Copy,
-	ExternalLink,
-	ChevronLeft,
-	ChevronRight,
-} from "lucide-react";
-
-import { useTheme } from "next-themes";
-
-import { createPublicClient, http, formatEther } from "viem";
-
-import {
 	FACILITATOR_ADDRESS,
-	SUPPORTED_CHAINS,
 	FACILITATOR_URL,
+	SUPPORTED_CHAINS,
 } from "@/lib/constants";
 
 // Mock server data
@@ -216,7 +206,7 @@ export default function BlockchainDashboard() {
 
 	React.useEffect(() => {
 		setCurrentPage(1);
-	}, [selectedChain]);
+	}, []);
 
 	// Calculate pagination
 
@@ -682,6 +672,7 @@ export default function BlockchainDashboard() {
 
 														<div className="flex items-center gap-1">
 															<button
+																type="button"
 																onClick={() => copyToClipboard(tx.id)}
 																className="p-1 hover:bg-accent rounded transition-colors cursor-pointer"
 																title="Copy transaction hash"
