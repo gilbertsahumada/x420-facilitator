@@ -22,7 +22,7 @@ import { useTheme } from "next-themes"
 
 import { createPublicClient, http, formatEther } from "viem"
 
-import { FACILITATOR_ADDRESS, SUPPORTED_CHAINS } from "@/lib/constants"
+import { FACILITATOR_ADDRESS, SUPPORTED_CHAINS, FACILITATOR_URL } from "@/lib/constants"
 
 
 
@@ -30,7 +30,7 @@ import { FACILITATOR_ADDRESS, SUPPORTED_CHAINS } from "@/lib/constants"
 
 const serverInfo = {
 
-  url: "https://facilitator.blockchain.io",
+  url: FACILITATOR_URL,
 
   status: "online",
 
