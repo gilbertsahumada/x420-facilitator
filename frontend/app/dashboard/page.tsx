@@ -22,23 +22,7 @@ import { useTheme } from "next-themes"
 
 import { createPublicClient, http, formatEther } from "viem"
 
-
-
-// Facilitator address
-
-const FACILITATOR_ADDRESS = "0xf970be6543cd20ff1f7570959949e31fa16fba7b" as const
-
-
-
-// Supported blockchain networks
-
-const supportedChains = [
-
-  { id: "avalanche", name: "Avalanche", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax.network/ext/bc/C/rpc", enabled: false },
-
-  { id: "avalanche-fuji", name: "Avalanche Fuji", symbol: "AVAX", color: "#E84142", rpcUrl: "https://api.avax-test.network/ext/bc/C/rpc", enabled: true },
-
-]
+import { FACILITATOR_ADDRESS, SUPPORTED_CHAINS } from "@/lib/constants"
 
 
 
@@ -64,7 +48,7 @@ const generateMockTransactions = () => {
 
   const transactions = []
 
-  const chains = ["avalanche", "avalanche-fuji"]
+  const chains = SUPPORTED_CHAINS.filter(c => c.enabled).map(c => c.id)
 
 
 
@@ -132,7 +116,7 @@ export default function BlockchainDashboard() {
 
     const fetchBalances = async () => {
 
-      const enabledChains = supportedChains.filter(c => c.enabled);
+      const enabledChains = SUPPORTED_CHAINS.filter(c => c.enabled);
 
       const balancePromises = enabledChains.map(async (chain) => {
 
@@ -503,7 +487,7 @@ export default function BlockchainDashboard() {
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
-              {supportedChains.map((chain) => {
+              {SUPPORTED_CHAINS.map((chain) => {
 
                 const balance = balances[chain.id] || "0.0000"
 
@@ -805,7 +789,7 @@ export default function BlockchainDashboard() {
 
                   <SelectItem value="all">All chains</SelectItem>
 
-                  {supportedChains.filter(chain => chain.enabled).map((chain) => (
+                  {SUPPORTED_CHAINS.filter(chain => chain.enabled).map((chain) => (
 
                     <SelectItem key={chain.id} value={chain.id}>
 
@@ -853,7 +837,7 @@ export default function BlockchainDashboard() {
 
                   {paginatedTransactions.map((tx) => {
 
-                    const chain = supportedChains.find((c) => c.id === tx.chain)
+                    const chain = SUPPORTED_CHAINS.find((c) => c.id === tx.chain)
 
                     return (
 

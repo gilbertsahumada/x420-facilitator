@@ -7,27 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, ArrowRight, Network, Server, Copy, ExternalLink } from "lucide-react";
 import { createPublicClient, http, formatEther } from "viem";
 import { toast } from "sonner";
-
-const FACILITATOR_ADDRESS = "0xf970be6543cd20ff1f7570959949e31fa16fba7b" as const;
-
-const networks = [
-  {
-    name: 'Avalanche',
-    color: '#E84142',
-    rpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
-    chainId: 43114,
-    enabled: false,
-  },
-  {
-    name: 'Avalanche Fuji',
-    color: '#E84142',
-    rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
-    chainId: 43113,
-    enabled: true,
-  }
-];
-
-const FACILITATOR_URL = "https://facilitator.x420.cloud";
+import { FACILITATOR_ADDRESS, FACILITATOR_URL, NETWORKS } from "@/lib/constants";
 
 export default function Home() {
   const [balances, setBalances] = useState<Record<string, string>>({});
@@ -51,7 +31,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchBalances = async () => {
-      const enabledNetworks = networks.filter(n => n.enabled);
+      const enabledNetworks = NETWORKS.filter(n => n.enabled);
       const balancePromises = enabledNetworks.map(async (network) => {
         try {
           const client = createPublicClient({
@@ -248,7 +228,7 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
-                {networks.map((network) => {
+                {NETWORKS.map((network) => {
                   const balance = balances[network.name] || "0.0000";
                   const displayBalance = loading ? "..." : Number.parseFloat(balance).toFixed(4);
                   const isEnabled = network.enabled ?? true;

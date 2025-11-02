@@ -1,8 +1,20 @@
+# Frontend
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First, create a `.env.local` file in the frontend directory with the following variables:
+
+```bash
+# Facilitator Address (Ethereum address)
+NEXT_PUBLIC_FACILITATOR_ADDRESS=0x76b0d7aa45c0efeec787d3a661247fbe19416885
+
+# Facilitator API URL
+NEXT_PUBLIC_FACILITATOR_URL=https://facilitator.x420.cloud
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -16,9 +28,20 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All constants are centralized in `lib/constants.ts`. The facilitator address and API URL can be configured via environment variables:
+
+- `NEXT_PUBLIC_FACILITATOR_ADDRESS`: The Ethereum address of the facilitator (required)
+- `NEXT_PUBLIC_FACILITATOR_URL`: The API endpoint URL for the facilitator (optional, defaults to https://facilitator.x420.cloud)
+
+## Constants
+
+All application constants are exported from `@/lib/constants`:
+- `FACILITATOR_ADDRESS`: The facilitator's Ethereum address
+- `FACILITATOR_URL`: The facilitator API URL
+- `NETWORKS`: Supported blockchain networks (for home page)
+- `SUPPORTED_CHAINS`: Supported chains (for dashboard)
 
 ## Learn More
 

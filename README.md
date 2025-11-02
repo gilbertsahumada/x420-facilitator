@@ -36,7 +36,7 @@ Ver [worker/README.md](worker/README.md) para más detalles.
 ## Address Facilitator
 
 ```shell
-0xf970be6543cd20ff1f7570959949e31fa16fba7b
+0x76b0d7aa45c0efeec787d3a661247fbe19416885
 ```
 
 ## Backend (Facilitator API)
