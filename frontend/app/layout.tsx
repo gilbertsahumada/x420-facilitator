@@ -4,60 +4,60 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+	variable: "--font-geist-sans",
+	subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+	variable: "--font-geist-mono",
+	subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "x420 Payment Facilitator",
-  description: "Payment facilitator implementing the x402 protocol",
-  icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
-  },
-  openGraph: {
-    title: "x420 Payment Facilitator",
-    description: "Payment facilitator implementing the x402 protocol",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "x420 Payment Facilitator",
-    description: "Payment facilitator implementing the x402 protocol",
-  },
+	title: "x420 Payment Facilitator",
+	description: "Payment facilitator implementing the x402 protocol",
+	icons: {
+		icon: "/favicon.svg",
+		shortcut: "/favicon.svg",
+		apple: "/favicon.svg",
+	},
+	openGraph: {
+		title: "x420 Payment Facilitator",
+		description: "Payment facilitator implementing the x402 protocol",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "x420 Payment Facilitator",
+		description: "Payment facilitator implementing the x402 protocol",
+	},
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          {children}
-          <Analytics />
-          <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en" suppressHydrationWarning>
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+			>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<Navbar />
+					{children}
+					<Analytics />
+					<Toaster />
+				</ThemeProvider>
+			</body>
+		</html>
+	);
 }
