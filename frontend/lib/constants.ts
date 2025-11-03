@@ -12,24 +12,6 @@ export const FACILITATOR_ADDRESS = (process.env
 export const FACILITATOR_URL =
 	process.env.NEXT_PUBLIC_FACILITATOR_URL || "https://facilitator.x420.cloud";
 
-// Supported blockchain networks
-export const NETWORKS = [
-	{
-		name: "Avalanche",
-		color: "#E84142",
-		rpcUrl: "https://api.avax.network/ext/bc/C/rpc",
-		chainId: 43114,
-		enabled: false,
-	},
-	{
-		name: "Avalanche Fuji",
-		color: "#E84142",
-		rpcUrl: "https://api.avax-test.network/ext/bc/C/rpc",
-		chainId: 43113,
-		enabled: true,
-	},
-] as const;
-
 // Supported chains for dashboard (mapped format)
 export const SUPPORTED_CHAINS = [
 	{
@@ -38,7 +20,7 @@ export const SUPPORTED_CHAINS = [
 		symbol: "AVAX",
 		color: "#E84142",
 		rpcUrl: "https://api.avax.network/ext/bc/C/rpc",
-		enabled: false,
+		enabled: true,
 	},
 	{
 		id: "avalanche-fuji",

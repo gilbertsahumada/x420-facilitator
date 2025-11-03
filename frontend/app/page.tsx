@@ -1,5 +1,4 @@
 "use client";
-
 import {
 	ArrowRight,
 	CheckCircle2,
@@ -23,7 +22,7 @@ import {
 import {
 	FACILITATOR_ADDRESS,
 	FACILITATOR_URL,
-	NETWORKS,
+	SUPPORTED_CHAINS,
 } from "@/lib/constants";
 
 export default function Home() {
@@ -48,7 +47,7 @@ export default function Home() {
 
 	useEffect(() => {
 		const fetchBalances = async () => {
-			const enabledNetworks = NETWORKS.filter((n) => n.enabled);
+			const enabledNetworks = SUPPORTED_CHAINS.filter((n) => n.enabled);
 			const balancePromises = enabledNetworks.map(async (network) => {
 				try {
 					const client = createPublicClient({
@@ -109,11 +108,11 @@ export default function Home() {
 	}, []);
 	return (
 		<div className="min-h-screen bg-background">
-			<div className="p-4 md:p-8">
-				<div className="mx-auto max-w-7xl space-y-8">
+			<div className="p-3 sm:p-4 md:p-8">
+				<div className="mx-auto max-w-7xl space-y-6 sm:space-y-8">
 					{/* Header */}
 					<div className="space-y-2">
-						<h1 className="text-4xl font-bold tracking-tight">
+						<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 							x<span className="text-green-600 dark:text-green-400">4</span>
 							<span className="text-green-600 dark:text-green-400 inline-block transform scale-x-[-1]">
 								2
@@ -144,18 +143,18 @@ export default function Home() {
 											Facilitator Address
 										</p>
 									</div>
-									<div className="flex items-center gap-3">
-										<code className="flex-1 min-w-0 px-4 py-3 h-12 bg-background border rounded-lg font-mono text-base font-semibold break-all flex items-center">
+									<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+										<code className="flex-1 min-w-0 px-3 sm:px-4 py-2 sm:py-3 h-auto sm:h-12 bg-background border rounded-lg font-mono text-xs sm:text-sm md:text-base font-semibold break-all flex items-center">
 											{FACILITATOR_ADDRESS}
 										</code>
 										<Button
 											variant="default"
 											size="lg"
 											onClick={() => copyToClipboard(FACILITATOR_ADDRESS)}
-											className="gap-2 w-36 h-12 cursor-pointer"
+											className="gap-2 w-full sm:w-36 h-10 sm:h-12 cursor-pointer shrink-0"
 										>
-											<Copy className="h-4 w-4" />
-											Copy Address
+											<Copy className="h-3 w-3 sm:h-4 sm:w-4" />
+											<span className="text-sm sm:text-base">Copy Address</span>
 										</Button>
 									</div>
 								</div>
@@ -166,18 +165,18 @@ export default function Home() {
 										<p className="text-sm font-medium text-muted-foreground">
 											Facilitator URL
 										</p>
-										<div className="flex items-center gap-3">
-											<code className="flex-1 min-w-0 px-4 py-3 h-12 bg-background border rounded-lg font-mono text-base font-semibold break-all flex items-center">
+										<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+											<code className="flex-1 min-w-0 px-3 sm:px-4 py-2 sm:py-3 h-auto sm:h-12 bg-background border rounded-lg font-mono text-xs sm:text-sm md:text-base font-semibold break-all flex items-center">
 												{FACILITATOR_URL}
 											</code>
 											<Button
 												variant="outline"
 												size="lg"
 												onClick={() => window.open(FACILITATOR_URL, "_blank")}
-												className="gap-2 w-36 h-12 cursor-pointer"
+												className="gap-2 w-full sm:w-36 h-10 sm:h-12 cursor-pointer shrink-0"
 											>
-												<ExternalLink className="h-4 w-4" />
-												Open
+												<ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
+												<span className="text-sm sm:text-base">Open</span>
 											</Button>
 										</div>
 									</div>
@@ -187,7 +186,7 @@ export default function Home() {
 					</Card>
 
 					{/* Main Cards */}
-					<div className="grid gap-6 md:grid-cols-2">
+					<div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
 						<Card>
 							<CardHeader>
 								<div className="flex items-center gap-2">
@@ -259,8 +258,8 @@ export default function Home() {
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<div className="grid grid-cols-2 gap-4">
-								{NETWORKS.map((network) => {
+							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+								{SUPPORTED_CHAINS.map((network) => {
 									const balance = balances[network.name] || "0.0000";
 									const displayBalance = loading
 										? "..."
@@ -337,7 +336,7 @@ export default function Home() {
 							<CardDescription>{FACILITATOR_URL}</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<div className="grid gap-4 md:grid-cols-2">
+							<div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
 								<div>
 									<p className="text-sm text-muted-foreground">API Status</p>
 									<div className="flex items-center gap-2 mt-1">
